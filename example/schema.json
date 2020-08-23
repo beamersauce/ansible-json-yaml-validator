@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "a": 123,
+            "b": "some string",
+            "c": [
+                "array",
+                "of",
+                "strings"
+            ]
+        }
+    ],
+    "required": [
+        "a",
+        "b",
+        "c"
+    ],
+    "properties": {
+        "a": {
+            "$id": "#/properties/a",
+            "type": "integer",
+            "title": "The a schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                123
+            ]
+        },
+        "b": {
+            "$id": "#/properties/b",
+            "type": "string",
+            "title": "The b schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "some string"
+            ]
+        },
+        "c": {
+            "$id": "#/properties/c",
+            "type": "array",
+            "title": "The c schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "array",
+                    "of"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/c/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/c/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "array",
+                            "of"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}

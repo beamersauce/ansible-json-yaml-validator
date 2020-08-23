@@ -1,0 +1,6 @@
+a: 123
+b: "some string"
+c: 
+  - "array"
+  - "of"
+  - "strings"
