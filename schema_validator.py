@@ -114,8 +114,7 @@ def run_module():
     try:
         validate(instance=data, schema=schema_data)
     except jsonschema.exceptions.ValidationError as err:
-        # TODO figure out how to also return all of err for better debugging
-        module.fail_json(msg=err.message, **result)
+        module.fail_json(msg="Message: '%s', Error: '%s'" % (err.message, str(err)), **result)
 
     # success, exit out
     module.exit_json(**result)
