@@ -4,9 +4,7 @@ Ansible module for validating json or yaml files by comparing to a jsonschema fi
 ## To use
 
 1. Copy `schema_validator.py` into your ansible module directory (typically this is something like ~/.ansible/plugins/modules/)
-2. Make sure you have the dependencies installed on the host machine that will be running this module
-    1. `pip3 install jsonschema`
-    2. `pip3 install pyyaml` 
+2. Make sure you have the dependencies installed on the host machine that will be running this module: `pip3 isntall jsonschema pyyaml`
 3. Verify setup is correct: `ansible-doc schema_validator`
 
 ### Playbook examples:
