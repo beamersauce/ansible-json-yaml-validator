@@ -19,3 +19,17 @@ Use in your own playbook:
       yaml_path: 'test-valid.yaml'
       schema_path: "schema.json"
 ```
+
+### Parameters
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| schema_path | string (file path) | yes | Path to JSON Schema file - used to validate the JSON or YAML file |
+| json_path | string (file path) | no* | Path to JSON file to validate |
+| yaml_path | string (file path) | no* | Path to YAML file to validate |
+
+\* one of `json_path` or `yaml_path` must exist -- you need something to validate!
+
+## Under the covers
+
+This module uses jsonschema to validate the given file against the given schema (https://python-jsonschema.readthedocs.io/en/stable/).  If you supply a YAML file - then PyYaml is used to read in the contents which are converted to json and then validated against.
