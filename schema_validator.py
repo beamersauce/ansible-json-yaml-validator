@@ -42,32 +42,35 @@ author:
 EXAMPLES = '''
   - name: Test valid JSON
     schema_validator:
-      json_path: 'example/test-valid.json'
-      schema_path: "example/schema.json"
+      json_path: 'test-valid.json'
+      schema_path: "schema.json"
 
   - name: Test invalid JSON
     schema_validator:
-      json_path: 'example/test-invalid.json'
-      schema_path: "example/schema.json"
+      json_path: 'test-invalid.json'
+      schema_path: "schema.json"
     ignore_errors: yes
 
   - name: Test valid YAML
     schema_validator:
-      yaml_path: 'example/test-valid.yaml'
-      schema_path: "example/schema.json"
+      yaml_path: 'test-valid.yaml'
+      schema_path: "schema.json"
 
   - name: Test invalid YAML
     schema_validator:
-      yaml_path: 'example/test-invalid.yaml'
-      schema_path: "example/schema.json"
+      yaml_path: 'test-invalid.yaml'
+      schema_path: "schema.json"
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-# TODO import deps in a try/except https://ansible-docs.readthedocs.io/zh/stable-2.0/rst/developing_modules.html
-from jsonschema import validate
-import jsonschema
-import json
-import yaml
+try:
+    from jsonschema import validate
+    import jsonschema
+    import json
+    import yaml
+    HAS_DEPS=True
+except:
+    HAS_DEPS=False    
 
 def run_module():
     # define available arguments/parameters a user can pass to the module
@@ -88,6 +91,9 @@ def run_module():
         supports_check_mode=True
     )
 
+    # Verify deps exist
+    if not HAS_DEPS:
+        module.fail_json(msg="'jsonschema' and 'pyyaml' dependencies are required on hosts running this module. Use `pip3 install jsonschema pyyaml`", **result)
     
     with open(module.params['schema_path']) as f_schema:
         schema_data = json.load(f_schema)
@@ -109,7 +115,7 @@ def run_module():
         validate(instance=data, schema=schema_data)
     except jsonschema.exceptions.ValidationError as err:
         # TODO figure out how to also return all of err for better debugging
-        module.fail_json(msg=err, **result)
+        module.fail_json(msg=err.message, **result)
 
     # success, exit out
     module.exit_json(**result)

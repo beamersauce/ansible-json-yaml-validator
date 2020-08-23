@@ -11,6 +11,8 @@ Ansible module for validating json or yaml files by comparing to a jsonschema fi
 
 ### Playbook examples:
 
+Run the included sample playbook via: `ansible-playbook -v example/test-playbook.yaml -e 'ansible_python_interpreter=/usr/bin/python3'`
+
 ```
 - name: Test the schema_validator module
   hosts: localhost
@@ -18,28 +20,28 @@ Ansible module for validating json or yaml files by comparing to a jsonschema fi
 
   - name: Test valid JSON
     schema_validator:
-      json_path: 'example/test-valid.json'
-      schema_path: "example/schema.json"
+      json_path: 'test-valid.json'
+      schema_path: "schema.json"
 
   - name: Test invalid JSON
     schema_validator:
-      json_path: 'example/test-invalid.json'
-      schema_path: "example/schema.json"
+      json_path: 'test-invalid.json'
+      schema_path: "schema.json"
     ignore_errors: yes
 
   - name: Test valid YAML
     schema_validator:
-      yaml_path: 'example/test-valid.yaml'
-      schema_path: "example/schema.json"
+      yaml_path: 'test-valid.yaml'
+      schema_path: "schema.json"
 
   - name: Test invalid YAML
     schema_validator:
-      yaml_path: 'example/test-invalid.yaml'
-      schema_path: "example/schema.json"
+      yaml_path: 'test-invalid.yaml'
+      schema_path: "schema.json"
     ignore_errors: yes
 
   - name: Test not providing JSON or YAML path
     schema_validator:
-      schema_path: "example/schema.json"
+      schema_path: "schema.json"
     ignore_errors: yes
 ```
